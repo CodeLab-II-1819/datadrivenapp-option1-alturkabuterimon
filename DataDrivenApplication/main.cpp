@@ -14,7 +14,9 @@ int main()
 	cout << "Welcome to this Data Driven Application." << endl;
 	cout << "Please select an option:" << endl;
 	cout << "" << endl;
-	cout << "1: Display all tweets." << endl;
+	cout << "1: Count all tweets." << endl;
+	cout << "2: Count all tweets containing the word 'Politics.'" << endl;
+
 
 	cin >> option;
 
@@ -25,11 +27,20 @@ int main()
 			cout << "Reading from file." << endl;
 			while (!inFile.eof())
 			{
-				getline(inFile, data);
-				cout << data << endl;
 				numOfTweets++;
 			}
 			cout << "The total number of tweets is: " << numOfTweets << endl;
+		}
+	}
+	else if (option == 2)
+	{
+		if (inFile.good())
+		{
+			cout << "Reading from file." << endl;
+			while (!inFile.eof())
+			{
+
+			}
 		}
 	}
 
