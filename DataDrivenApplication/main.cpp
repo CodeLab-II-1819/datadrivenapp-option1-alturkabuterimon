@@ -20,6 +20,7 @@ int main()
 	cout << "" << endl;
 	cout << "1: Count all tweets." << endl;
 	cout << "2: Count all tweets containing the word 'Money.'" << endl;
+	cout << "3: Count all tweets containing the word 'Politics.'" << endl;
 
 
 	cin >> option;
@@ -52,6 +53,24 @@ int main()
 					
 				}
 				cout << "The total number of tweets containing the word 'Money' is: " << numOfTweets << endl;
+			}
+		}
+	}
+	else if (option == 3)
+	{
+		if (inFile.good())
+		{
+			cout << "Reading from file." << endl;
+			while (!inFile.eof())
+			{
+				while (getline(inFile, line))
+				{
+					if ((offset = line.find(option3Word, 0)) != string::npos)
+					{
+						numOfTweets++;
+					}
+				}
+				cout << "The total number of tweets containing the word 'Politics' is: " << numOfTweets << endl;
 			}
 		}
 	}
