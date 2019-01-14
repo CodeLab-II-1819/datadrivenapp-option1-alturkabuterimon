@@ -5,7 +5,7 @@ using namespace std;
 
 int main()
 {
-	int option; 
+	int option, date; 
 	int offset;
 	int numOfTweets = 0;
 	string searchTerm;
@@ -25,6 +25,8 @@ int main()
 	cout << "6: Print out all tweets mentioning the word 'Uber'" << endl;
 	//Own queries
 	cout << "7: Print out all tweets mentioning the word 'Cats'" << endl;
+	cout << "8: Search by year." << endl;
+	cout << "9: Search by word." << endl;
 
 
 	cin >> option;
@@ -162,28 +164,58 @@ int main()
 	}
 	else if (option == 7)
 	{
-	if (inFile.good())
-	{
-		cout << "Reading from file." << endl;
-		while (!inFile.eof())
+		cout << "7" << endl;
+		if (inFile.good())
 		{
-			while (getline(inFile, line))
+			cout << "Reading from file." << endl;
+			while (!inFile.eof())
 			{
-				if ((offset = line.find("Cats", 0)) != string::npos)
+				while (getline(inFile, line))
 				{
-					numOfTweets++;
-					cout << line << endl;
+					if ((offset = line.find("Cats", 0)) != string::npos)
+					{
+						numOfTweets++;
+						cout << line << endl;
+					}
+					else if ((offset = line.find("cats", 0)) != string::npos)
+					{
+						numOfTweets++;
+						cout << line << endl;
+					}
 				}
-				else if ((offset = line.find("cats", 0)) != string::npos)
-				{
-					numOfTweets++;
-					cout << line << endl;
-				}
+				cout << "The total number of tweets containing the word 'Cat' is: " << numOfTweets << endl;
 			}
-			cout << "The total number of tweets containing the word 'Cat' is: " << numOfTweets << endl;
 		}
 	}
-	}
+		else if (option == 8)
+		{
+
+			if (inFile.good())
+			{
+				cout << "Please insert the year you want to search." << endl;
+				cin >> date;
+				cout << "Reading from file." << endl;
+				while (!inFile.eof())
+				{
+					while (getline(inFile, line))
+					{
+						if ((offset = line.find(date, 0)) != string::npos)
+						{
+							numOfTweets++;
+							cout << line << endl;
+						}
+					}
+					cout << "The total number of tweets from " << date << " is: " << numOfTweets << endl;
+				}
+			}
+			else {
+				cout << "Heres the problem" << endl;
+			}
+		}
+		else {
+			cout << "No Opition Entered!" << endl;
+		}
+	
 
 
 	system("Pause");
