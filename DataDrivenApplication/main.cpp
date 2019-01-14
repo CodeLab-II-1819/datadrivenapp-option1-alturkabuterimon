@@ -1,15 +1,19 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <algorithm> //For toUpper/toLower
 using namespace std;
 
 int main()
 {
-	int option, date; 
+	int option;
 	int offset;
 	int numOfTweets = 0;
-	string searchTerm;
+
+
+	string searchTerm, date;
 	string line; //Get the line from the file
+
 	ifstream inFile;
 	inFile.open("sampleTweets.csv"); //Open the csv file
 
@@ -25,12 +29,14 @@ int main()
 	cout << "6: Print out all tweets mentioning the word 'Uber'" << endl;
 	//Own queries
 	cout << "7: Print out all tweets mentioning the word 'Cats'" << endl;
-	cout << "8: Search by year." << endl;
+	cout << "8: Search by date." << endl;
 	cout << "9: Search by word." << endl;
+	cout << "10: Count all tweets mentionng the word 'Rabbit'" << endl;
 
 
 	cin >> option;
 
+	//Option 1
 	if (option == 1)
 	{
 		if (inFile.good()) //If the file is found
@@ -41,8 +47,11 @@ int main()
 				numOfTweets++;
 			}
 			cout << "The total number of tweets is: " << numOfTweets << endl;
+			system("Pause");
 		}
 	}
+
+	//Option 2
 	else if (option == 2)
 	{
 		if (inFile.good())
@@ -52,22 +61,25 @@ int main()
 			{
 				while (getline(inFile, line))
 				{
-					if ((offset = line.find("money", 0)) != string::npos)
+					if ((offset = line.find(" money ", 0)) != string::npos) //Place a space before and after the word to stop any potential words within words
 						//This line finds the word is on the line and saves that line to the variable line.
 					{
 						numOfTweets++;
 					}
-					else if ((offset = line.find("Money", 0)) != string::npos)
+					else if ((offset = line.find(" Money ", 0)) != string::npos)
 						//Else if for case sensitivity. 
 					{
 						numOfTweets++;
 					}
-					
+
 				}
 				cout << "The total number of tweets containing the word 'Money' is: " << numOfTweets << endl;
+				system("Pause");
 			}
 		}
 	}
+
+	//Option 3
 	else if (option == 3)
 	{
 		if (inFile.good())
@@ -77,19 +89,22 @@ int main()
 			{
 				while (getline(inFile, line))
 				{
-					if ((offset = line.find("politics", 0)) != string::npos)
+					if ((offset = line.find(" politics ", 0)) != string::npos)
 					{
 						numOfTweets++;
 					}
-					else if ((offset = line.find("Politics", 0)) != string::npos)
+					else if ((offset = line.find(" Politics ", 0)) != string::npos)
 					{
 						numOfTweets++;
 					}
 				}
 				cout << "The total number of tweets containing the word 'Politics' is: " << numOfTweets << endl;
+				system("Pause");
 			}
 		}
 	}
+
+	//Option 4
 	else if (option == 4)
 	{
 		if (inFile.good())
@@ -99,21 +114,26 @@ int main()
 			{
 				while (getline(inFile, line))
 				{
-					if ((offset = line.find("Paris", 0)) != string::npos)
+					if ((offset = line.find(" Paris ", 0)) != string::npos)
 					{
 						numOfTweets++;
+						cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl; //makes it look neater 
 						cout << line << endl; //Print the tweet.
 					}
-					else if ((offset = line.find("paris", 0)) != string::npos)
+					else if ((offset = line.find(" paris ", 0)) != string::npos)
 					{
 						numOfTweets++;
+						cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
 						cout << line << endl;
 					}
 				}
 				cout << "The total number of tweets containing the word 'Paris' is: " << numOfTweets << endl;
+				system("Pause");
 			}
 		}
 	}
+
+	//Option 5
 	else if (option == 5)
 	{
 		if (inFile.good())
@@ -123,21 +143,26 @@ int main()
 			{
 				while (getline(inFile, line))
 				{
-					if ((offset = line.find("DreamWorks", 0)) != string::npos)
+					if ((offset = line.find(" DreamWorks ", 0)) != string::npos)
 					{
 						numOfTweets++;
+						cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
 						cout << line << endl;
 					}
-					else if ((offset = line.find("dreamworks", 0)) != string::npos)
+					else if ((offset = line.find(" dreamworks ", 0)) != string::npos)
 					{
 						numOfTweets++;
+						cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
 						cout << line << endl;
 					}
 				}
 				cout << "The total number of tweets containing the word 'DreamWorks' is: " << numOfTweets << endl;
+				system("Pause");
 			}
 		}
 	}
+
+	//Option 6
 	else if (option == 6)
 	{
 		if (inFile.good())
@@ -147,24 +172,28 @@ int main()
 			{
 				while (getline(inFile, line))
 				{
-					if ((offset = line.find("Uber", 0)) != string::npos)
+					if ((offset = line.find(" Uber ", 0)) != string::npos)
 					{
 						numOfTweets++;
+						cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
 						cout << line << endl;
 					}
-					else if ((offset = line.find("uber", 0)) != string::npos)
+					else if ((offset = line.find(" uber ", 0)) != string::npos)
 					{
 						numOfTweets++;
+						cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
 						cout << line << endl;
 					}
 				}
 				cout << "The total number of tweets containing the word 'Uber' is: " << numOfTweets << endl;
+				system("Pause"); 
 			}
 		}
 	}
+
+	//Option 7
 	else if (option == 7)
 	{
-		cout << "7" << endl;
 		if (inFile.good())
 		{
 			cout << "Reading from file." << endl;
@@ -172,52 +201,112 @@ int main()
 			{
 				while (getline(inFile, line))
 				{
-					if ((offset = line.find("Cats", 0)) != string::npos)
+					if ((offset = line.find(" Cats ", 0)) != string::npos)
 					{
 						numOfTweets++;
+						cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
 						cout << line << endl;
 					}
-					else if ((offset = line.find("cats", 0)) != string::npos)
+					else if ((offset = line.find(" cats ", 0)) != string::npos)
 					{
 						numOfTweets++;
+						cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
 						cout << line << endl;
 					}
 				}
 				cout << "The total number of tweets containing the word 'Cat' is: " << numOfTweets << endl;
+				system("Pause");
 			}
 		}
 	}
-		else if (option == 8)
-		{
 
-			if (inFile.good())
+	//Option 8
+	else if (option == 8)
+	{
+
+		if (inFile.good())
+		{
+			cout << "Please insert the date you want to search. (DD/MM/YYY)" << endl;
+			cin >> date;
+			cout << "Reading from file." << endl;
+			while (!inFile.eof())
 			{
-				cout << "Please insert the year you want to search." << endl;
-				cin >> date;
-				cout << "Reading from file." << endl;
-				while (!inFile.eof())
+				while (getline(inFile, line))
 				{
-					while (getline(inFile, line))
+					if ((offset = line.find(date, 0)) != string::npos)
 					{
-						if ((offset = line.find(date, 0)) != string::npos)
+						numOfTweets++;
+						cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+						cout << line << endl;
+
+						if (numOfTweets == 0)
 						{
-							numOfTweets++;
-							cout << line << endl;
+							cout << "No Tweets Found." << endl;
 						}
 					}
-					cout << "The total number of tweets from " << date << " is: " << numOfTweets << endl;
+				}
+				cout << "The total number of tweets from " << date << " is: " << numOfTweets << endl;
+				system("Pause");
+			}
+		}
+	}
+	else if (option == 9)
+	{
+		if (inFile.good())
+		{
+			cout << "Please insert the word you want to search." << endl;
+			cin >> searchTerm;
+			transform(searchTerm.begin(), searchTerm.end(), searchTerm.begin(), ::tolower); //Converts the inputted string to lowercase 
+			cout << "Reading from file." << endl;
+			while (getline(inFile, line))
+			{
+				if ((offset = line.find(searchTerm, 0)) != string::npos)
+				{
+					numOfTweets++;
+					cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+					cout << line << endl;
 				}
 			}
-			else {
-				cout << "Heres the problem" << endl;
+			cout << "The total number of tweets containing " << searchTerm << " is: " << numOfTweets << endl;
+			system("Pause");
+		}
+	}
+	else if (option == 10)
+	{
+		if (inFile.good())
+		{
+			cout << "Reading from file." << endl;
+			while (!inFile.eof())
+			{
+				while (getline(inFile, line))
+				{
+					if ((offset = line.find(" Rabbit ", 0)) != string::npos)
+					{
+						numOfTweets++;
+						cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+						cout << line << endl;
+					}
+					else if ((offset = line.find(" rabbit ", 0)) != string::npos)
+					{
+						numOfTweets++;
+						cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+						cout << line << endl;
+					}
+				}
+				cout << "The total number of tweets containing the word 'Rabbit' is: " << numOfTweets << endl;
+				system("Pause");
 			}
+
 		}
 		else {
-			cout << "No Opition Entered!" << endl;
+			cout << "No Option Entered!" << endl;
 		}
-	
 
 
-	system("Pause");
-	return 0;
+		//Option 9
+
+
+		system("Pause");
+		return 0;
+	}
 }
