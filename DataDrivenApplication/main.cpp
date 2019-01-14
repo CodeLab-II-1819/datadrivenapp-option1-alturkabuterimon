@@ -4,10 +4,41 @@
 #include <algorithm> //For toUpper/toLower
 using namespace std;
 
+
+
+//Functions
+
+//Function to count tweets
+int countTweets(ifstream &inFile, int numOfTweets, int offset, string toUpper, string toLower, string line)
+{
+	inFile.open("sampleTweets.csv");
+	if (inFile.good())
+	{
+		cout << "Reading from file." << endl;
+		while (!inFile.eof())
+		{
+			while (getline(inFile, line))
+			{
+				if (((offset = line.find(" " + toLower + " ", 0)) != string::npos) || ((offset = line.find(" " + toUpper + " ", 0)) != string::npos))  //Place a space before and after the word to stop any potential words within words
+					//This line finds the word is on the line and saves that line to the variable line, it finds both upper and lowercase values.
+				{
+					numOfTweets++;
+					cout << "Here is a line." << endl;
+				}
+				
+			}
+		}
+	}
+	return numOfTweets;
+	inFile.close();
+}
+
+//Function to print tweets
+
 int main()
 {
 	int option;
-	int offset;
+	int offset = 0;
 	int numOfTweets = 0;
 
 
@@ -15,7 +46,7 @@ int main()
 	string line; //Get the line from the file
 
 	ifstream inFile;
-	inFile.open("sampleTweets.csv"); //Open the csv file
+	//inFile.open("sampleTweets.csv"); //Open the csv file
 
 	cout << "Welcome to this Data Driven Application." << endl;
 	cout << "Please select an option:" << endl;
@@ -54,7 +85,12 @@ int main()
 	//Option 2
 	else if (option == 2)
 	{
-		if (inFile.good())
+		//countTweets(inFile, numOfTweets, offset, "Money", "money", line);
+		cout << "The total number of tweets containing the word 'Money' is: " << countTweets(inFile, numOfTweets, offset, "Money", "money", line) << endl;
+		system("Pause");
+	}
+
+		/*if (inFile.good())
 		{
 			cout << "Reading from file." << endl;
 			while (!inFile.eof())
@@ -77,7 +113,7 @@ int main()
 				system("Pause");
 			}
 		}
-	}
+	}*/
 
 	//Option 3
 	else if (option == 3)
