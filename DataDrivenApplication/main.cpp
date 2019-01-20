@@ -82,13 +82,33 @@ void searchByDate(ifstream &inFile, int numOfTweets, int offset, string date, st
 	inFile.close();
 }
 
+//Function to check for validation errors
+
+//Function to restart the program
+/*bool restartApplication(bool restart)
+{
+	char restartOption;
+	cout << "Would you like to restart the program? (Y/N)" << endl;
+	cin >> restartOption;
+
+	if (restartOption == 'Y' || restartOption == 'y')
+	{
+		restart == true;
+		return restart;
+	}
+	else if (restartOption == 'N' || restartOption == 'n')
+	{
+		restart == false;
+		return restart;
+	}
+}*/
+
 int main()
 {
 	int option;
 	int offset = 0;
 	int numOfTweets = 0;
-
-	char restartOption;
+	int count = 0;
 
 	string searchTerm, date;
 	string line; //Get the line from the file
@@ -97,7 +117,7 @@ int main()
 
 	ifstream inFile;
 
-	do {
+
 
 
 		cout << "Welcome to this Data Driven Application." << endl;
@@ -122,20 +142,18 @@ int main()
 		//Option 1
 		if (option == 1)
 		{
+			system("CLS");
 			if (inFile.good()) //If the file is found
 			{
 				cout << "Reading from file." << endl;
 				while (!inFile.eof()) //If before the end of the file
 				{
-					numOfTweets++;
+					numOfTweets++; 
 				}
-				numOfTweets--;
 				cout << "The total number of tweets is: " << numOfTweets << endl;
 				system("Pause");
 				cout << endl;
-				cout << "Would you like to restart the program? (Y/N)" << endl;
-				cin >> restartOption;
-
+			
 			}
 		}
 
@@ -218,5 +236,5 @@ int main()
 			system("Pause");
 
 		}
-	}
-}while (restart = true)
+}
+
