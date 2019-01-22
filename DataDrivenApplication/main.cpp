@@ -79,10 +79,36 @@ void searchByDate(int numOfTweets, int offset, string date)
 				cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
 				cout << line << endl;
 			}
-			cout << "The total number of tweets from " << date << " are: " << numOfTweets << endl;
 		}
+		cout << "The total number of tweets from " << date << " are: " << numOfTweets << endl;
 	}
 	inFile.close();
+}
+
+//Function to search by user inputted word
+void searchByWord(int numOfTweets, int offset, string searchTerm)
+{
+	ifstream inFile;
+	string line;
+
+	inFile.open("sampleTweets.csv");
+	if (inFile.good())
+	{
+		cout << "Reading from file." << endl; 
+		while (!inFile.eof())
+		{
+			getline(inFile, line);
+			if (offset = line.find(searchTerm, 0) != string::npos)
+			{
+				numOfTweets++;
+				cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+				cout << line << endl;
+			}
+		}
+		cout << "The total number of tweets containing the word: " << searchTerm << "is: " << numOfTweets << endl;
+	}
+	inFile.close();
+
 }
 
 
@@ -213,33 +239,40 @@ int main()
 			system("CLS");
 			cout << "Please enter the date you want to search for (DD/MM/YYYY)" << endl;
 			cin >> date;
+
+			//Validation for date length
+			while (date.length() > 10 || date.length() < 10)
+			{
+				cout << "The date is the incorrect length, please try again. (DD/MM/YYYY)" << endl;
+				cin >> date;
+			}
+
+			//cin.fail check 
+			while (cin.fail())
+			{
+				cout << "Invalid input, please try again. (DD/MM/YYYY)" << endl;
+				cin.clear();
+				cin.ignore(1000, '\n');
+				cin >> date;
+			}
+
 			searchByDate(numOfTweets, offset, date);
 			cout << endl;
 			restartApplication(restart);
 
 		}
+
+		//Option 9
 		else if (option == 9)
 		{
-			if (inFile.good())
-			{
-				cout << "Please insert the word you want to search." << endl;
-				cin >> searchTerm;
-				transform(searchTerm.begin(), searchTerm.end(), searchTerm.begin(), ::tolower); //Converts the inputted string to lowercase 
-				cout << "Reading from file." << endl;
-				while (getline(inFile, line))
-				{
-					if ((offset = line.find(searchTerm, 0)) != string::npos)
-					{
-						numOfTweets++;
-						cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
-						cout << line << endl;
-					}
-				}
-				cout << "The total number of tweets containing " << searchTerm << " is: " << numOfTweets << endl;
-				cout << endl;
-				restartApplication(restart);
-			}
+			cout << "Please insert the word you want to search." << endl;
+			cin >> searchTerm; 
+			searchByWord(numOfTweets, offset, searchTerm);
+			cout << endl;
+			restartApplication(restart);
 		}
+
+		//Option 10
 		else if (option == 10)
 		{
 			system("CLS");
