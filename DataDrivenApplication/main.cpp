@@ -21,7 +21,7 @@ int countTweets(int numOfTweets, int offset, string toUpper, string toLower)
 		while (!inFile.eof())
 		{
 			getline(inFile, line);
-			if (((offset = line.find(" " + toLower + " ", 0)) != string::npos) || ((offset = line.find(" " + toUpper + " ", 0)) != string::npos))  //Place a space before and after the word to stop any potential words within words
+			if (((offset = line.find(toLower, 0)) != string::npos) || ((offset = line.find(toUpper, 0)) != string::npos))  //Place a space before and after the word to stop any potential words within words
 				//This line finds the word is on the line and saves that line to the variable line, it finds both upper and lowercase values.
 			{
 				numOfTweets++;
@@ -38,7 +38,7 @@ int countTweets(int numOfTweets, int offset, string toUpper, string toLower)
 void printTweets(int numOfTweets, int offset, string toUpper, string toLower)
 {
 	ifstream inFile;
-	string line; 
+	string line;
 
 	inFile.open("sampleTweets.csv");
 	if (inFile.good())
@@ -47,15 +47,15 @@ void printTweets(int numOfTweets, int offset, string toUpper, string toLower)
 		while (!inFile.eof())
 		{
 			getline(inFile, line);
-			if (((offset = line.find(" " + toLower + " ", 0)) != string::npos) || ((offset = line.find(" " + toUpper + " ", 0)) != string::npos))  
+			if (((offset = line.find(toLower, 0)) != string::npos) || ((offset = line.find(toUpper, 0)) != string::npos))
 			{
 				numOfTweets++;
 				cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl; //makes it look neater 
 				cout << line << endl; //Print the tweet
 
 			}
-			cout << "The total number of tweets containing the word: " << toUpper << " is: " << numOfTweets << endl; //Print out the number of tweets
 		}
+		cout << "The total number of tweets containing the word: " << toUpper << " is: " << numOfTweets << endl; //Print out the number of tweets
 	}
 	inFile.close();
 }
@@ -64,7 +64,7 @@ void printTweets(int numOfTweets, int offset, string toUpper, string toLower)
 void searchByDate(int numOfTweets, int offset, string date)
 {
 	ifstream inFile;
-	string line; 
+	string line;
 
 	inFile.open("sampleTweets.csv");
 	if (inFile.good())
@@ -94,7 +94,7 @@ void searchByWord(int numOfTweets, int offset, string searchTerm)
 	inFile.open("sampleTweets.csv");
 	if (inFile.good())
 	{
-		cout << "Reading from file." << endl; 
+		cout << "Reading from file." << endl;
 		while (!inFile.eof())
 		{
 			getline(inFile, line);
@@ -119,6 +119,12 @@ int restartApplication(int restart)
 	cout << "Would you like to restart the program? (Y/N)" << endl;
 	cin >> restartOption;
 
+	while (restartOption != 'y' && restartOption != 'Y' && restartOption != 'n' && restartOption != 'N')
+	{
+		cout << "Invalid input, please try again." << endl;
+		cin >> restartOption;
+	}
+
 	if (restartOption == 'Y' || restartOption == 'y')
 	{
 		restart = 0;
@@ -128,7 +134,7 @@ int restartApplication(int restart)
 	else if (restartOption == 'N' || restartOption == 'n')
 	{
 		restart = 1;
-		cout << "The application will now close." << endl; 
+		cout << "The application will now close." << endl;
 		return restart;
 		exit(0);
 	}
@@ -174,7 +180,6 @@ int main()
 		{
 			system("CLS");
 			countTweets(numOfTweets, offset, "", "");
-			cin >> count; 
 			cout << endl;
 			restartApplication(restart);
 		}
@@ -183,7 +188,7 @@ int main()
 		else if (option == 2)
 		{
 			system("CLS");
-			countTweets(numOfTweets, offset, "Money", "money");
+			countTweets(numOfTweets, offset, " Money ", " money ");
 			cout << endl;
 			restartApplication(restart);
 
@@ -193,7 +198,7 @@ int main()
 		else if (option == 3)
 		{
 			system("CLS");
-			countTweets(numOfTweets, offset, "Politics", "politics");
+			countTweets(numOfTweets, offset, " Politics ", " politics ");
 			cout << endl;
 			restartApplication(restart);
 		}
@@ -211,7 +216,7 @@ int main()
 		else if (option == 5)
 		{
 			system("CLS");
-			printTweets(numOfTweets, offset, " Dreamworks ", " dreamworks ");
+			printTweets(numOfTweets, offset, " DreamWorks ", " dreamworks ");
 			cout << endl;
 			restartApplication(restart);
 		}
@@ -219,6 +224,7 @@ int main()
 		//Option 6
 		else if (option == 6)
 		{
+			system("CLS");
 			printTweets(numOfTweets, offset, " Uber ", " uber ");
 			cout << endl;
 			restartApplication(restart);
@@ -247,6 +253,16 @@ int main()
 				cin >> date;
 			}
 
+			//Check if letters are in date string
+			for (int i = 0; i < date.length(); i++)
+			{
+				if (isalpha(date[i]))
+				{
+					cout << "The date contains a letter, please try inputting it again. (DD/MM/YYYY)" << endl;
+					cin >> date;
+				}
+			}
+
 			//cin.fail check 
 			while (cin.fail())
 			{
@@ -259,14 +275,24 @@ int main()
 			searchByDate(numOfTweets, offset, date);
 			cout << endl;
 			restartApplication(restart);
-
 		}
 
 		//Option 9
 		else if (option == 9)
 		{
+			system("CLS");
 			cout << "Please insert the word you want to search." << endl;
-			cin >> searchTerm; 
+			cin >> searchTerm;
+
+			//Cin.fail check 
+			while (cin.fail())
+			{
+				cout << "Invalid input, please try again." << endl;
+				cin.clear();
+				cin.ignore(1000, '\n');
+				cin >> searchTerm;
+			}
+
 			searchByWord(numOfTweets, offset, searchTerm);
 			cout << endl;
 			restartApplication(restart);
@@ -281,6 +307,6 @@ int main()
 			restartApplication(restart);
 
 		}
-	}while (restart == 0);
+	} while (restart == 0);
 }
 
