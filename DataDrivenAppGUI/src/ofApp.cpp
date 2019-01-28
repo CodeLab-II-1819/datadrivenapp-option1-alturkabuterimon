@@ -10,6 +10,9 @@ void ofApp::setup(){
 	font.load("FragmentCore.otf", 25);
 	font2.load("FragmentCore.otf", 18);
 
+	//Declare logo
+	logo.load("C:\\Users\\Home\\Documents\\OF\\apps\\myApps\\datadrivenapp-option1-alturkabuterimon\\DataDrivenAppGUI\\bin\\data\\logo.png");
+
 	//Declare padding 
 	padding = ofGetWindowHeight() / 55;
 	
@@ -67,6 +70,10 @@ void ofApp::draw(){
 	font2.drawString("Print: Paris", (width / 15) - padding * 2, (height / 10) + padding * 12 + (height / 16));
 	font2.drawString("Search by Word", (width / 15) - padding * 2, (height / 10) + padding * 16.5 + (height / 16));
 	font2.drawString("Print: Rabbits", (width / 15) - padding * 2, (height / 10) + padding * 21 + (height / 16));
+
+	//Display Logo
+	ofSetColor(255, 255, 255, 255); //Set colour to white and transparent so that logo doesn't take previous colour
+	logo.draw((width / 34) - padding * 1, (height / 1.75) + padding * 2);
 
 
 

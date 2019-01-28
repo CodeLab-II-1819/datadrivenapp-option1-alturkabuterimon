@@ -16,4 +16,5 @@ class ofApp : public ofBaseApp{
 		string welcome; //Text 
 
 		ofTrueTypeFont font, font2; //Declare font for text
+		ofImage logo; //Declare image
 };
