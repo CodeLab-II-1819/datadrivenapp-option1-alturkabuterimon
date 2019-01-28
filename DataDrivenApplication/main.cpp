@@ -263,14 +263,6 @@ int main()
 				}
 			}
 
-			//cin.fail check 
-			while (cin.fail())
-			{
-				cout << "Invalid input, please try again. (DD/MM/YYYY)" << endl;
-				cin.clear();
-				cin.ignore(1000, '\n');
-				cin >> date;
-			}
 
 			searchByDate(numOfTweets, offset, date);
 			cout << endl;

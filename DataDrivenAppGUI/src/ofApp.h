@@ -15,5 +15,5 @@ class ofApp : public ofBaseApp{
 
 		string welcome; //Text 
 
-		ofTrueTypeFont welcomeText; //Declare font for text
+		ofTrueTypeFont font, font2; //Declare font for text
 };
