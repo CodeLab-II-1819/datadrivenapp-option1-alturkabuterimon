@@ -175,6 +175,14 @@ int main()
 
 		cin >> option;
 
+		while (cin.fail())
+		{
+			cout << "Your inout is invalid, please try again." << endl;
+			cin.clear();
+			cin.ignore(1000, '\n');
+			cin >> option;
+		}
+
 		//Option 1
 		if (option == 1)
 		{
