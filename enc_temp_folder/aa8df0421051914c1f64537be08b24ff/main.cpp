@@ -284,6 +284,15 @@ int main()
 			cout << "Please insert the word you want to search." << endl;
 			cin >> searchTerm;
 
+			//Cin.fail check 
+			while (cin.fail())
+			{
+				cout << "Invalid input, please try again." << endl;
+				cin.clear();
+				cin.ignore(1000, '\n');
+				cin >> searchTerm;
+			}
+
 			searchByWord(numOfTweets, offset, searchTerm);
 			cout << endl;
 			restartApplication(restart);
