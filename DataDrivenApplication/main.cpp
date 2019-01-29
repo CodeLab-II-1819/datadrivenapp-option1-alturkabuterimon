@@ -134,8 +134,8 @@ int restartApplication(int restart)
 	else if (restartOption == 'N' || restartOption == 'n')
 	{
 		restart = 1;
-		cout << "The application will now close." << endl;
 		return restart;
+		cout << "The application will now close." << endl;
 		exit(0);
 	}
 }
