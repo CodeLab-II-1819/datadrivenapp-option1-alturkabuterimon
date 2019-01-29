@@ -170,14 +170,14 @@ int main()
 		cout << "7: Print out all tweets mentioning the word 'Cats'" << endl;
 		cout << "8: Search by date." << endl;
 		cout << "9: Search by word." << endl;
-		cout << "10: Count all tweets mentionng the word 'Rabbit'" << endl;
+		cout << "10: Count all tweets mentioning the word 'Rabbit'" << endl;
 
 
 		cin >> option;
 
 		while (cin.fail())
 		{
-			cout << "Your inout is invalid, please try again." << endl;
+			cout << "Your input is invalid, please try again." << endl;
 			cin.clear();
 			cin.ignore(1000, '\n');
 			cin >> option;
@@ -306,6 +306,13 @@ int main()
 			cout << endl;
 			restartApplication(restart);
 
+		}
+
+		//Incorrect input
+		else
+		{
+			cout << "Your input is incorrect, please try again." << endl;
+			cin >> option;
 		}
 	} while (restart == 0);
 }
